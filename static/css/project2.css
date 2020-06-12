@@ -9,3 +9,7 @@
     position: fixed;
     transition: all .3s;
 }
+
+#content {
+    margin-left: 250px;
+}
