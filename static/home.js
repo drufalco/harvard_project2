@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // By default, submit button is disabled
         document.querySelector('#add_channel_btn').disabled = true;
 
+
         // Enable button only if there is text in the input field
         document.querySelector('#channel_name').onkeyup = () => {
             if (document.querySelector('#channel_name').value.length > 0)
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (channel in channels) {
             //create new list item
             const li = document.createElement('li');
+            li.className = "nav-link";
             li.innerHTML = channel;
 
             //add to list 
