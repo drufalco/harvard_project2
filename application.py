@@ -15,9 +15,9 @@ def index():
 
 @app.route("/home", methods=["POST", "GET"])
 def home():
-    return render_template("home.html")
+    return render_template("home.html", channels=channels)
 
-# **********the channels don't stay from the last session
+# add channel to channel list
 @socketio.on("add channel")
 def add(channel_name):
     print(channels)
@@ -27,3 +27,8 @@ def add(channel_name):
         channels[channel_name] = [] # adds to dict
         emit("update channels", channels, broadcast=True) #updates
         print(channels)
+
+# click on channel from list to access its messages
+@app.route("/<channel_name>", methods=["GET", "POST"])
+def channel(channel_name):
+    return channels[channel_name]

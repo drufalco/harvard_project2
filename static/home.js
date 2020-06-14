@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    
+  
+    
+    // CODE FOR UPDATING CHANNEL LISTS
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -8,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // By default, submit button is disabled
         document.querySelector('#add_channel_btn').disabled = true;
-
 
         // Enable button only if there is text in the input field
         document.querySelector('#channel_name').onkeyup = () => {
@@ -31,8 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    // update channels list after the new channel has been added to the dictionary
     socket.on("update channels", channels => {
+        document.querySelector('#channel_nav').innerHTML = "";
         for (channel in channels) {
+            console.log(channel)
             //create new list item
             const li = document.createElement('li');
             li.className = "nav-link";
@@ -45,5 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#add_channel_btn').disabled = true;
     })
 });
+
+
 
 
