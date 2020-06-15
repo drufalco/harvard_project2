@@ -29,6 +29,7 @@ def add(channel_name):
         print(channels)
 
 # click on channel from list to access its messages
-@app.route("/<channel_name>", methods=["GET", "POST"])
+@app.route("/channel/<channel_name>", methods=["GET", "POST"])
 def channel(channel_name):
-    return channels[channel_name]
+    print(channels)
+    return render_template("channel.html", channel_name=channels[channel_name])

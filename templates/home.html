@@ -22,7 +22,7 @@
                 <h3>Channels</h3>
                 <ul id="channel_nav">
                 {% for channel in channels %}
-                <li class="nav-link">{{ channel }}</li>
+                <li class="nav-link"><a href="{{ url_for('channel', channel_name=channel) }}">{{ channel }}</a></li>
                 {% endfor %}
                 </ul>
             </nav>
