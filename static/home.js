@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    
-  
     
     // CODE FOR UPDATING CHANNEL LISTS
     // Connect to websocket
@@ -36,13 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // update channels list after the new channel has been added to the dictionary
     socket.on("update channels", channels => {
+        
         document.querySelector('#channel_nav').innerHTML = "";
         for (channel in channels) {
             console.log(channel)
             //create new list item
             const li = document.createElement('li');
             li.className = "nav-link";
-            li.innerHTML = channel;
+        
+            const a = document.createElement('a');
+            a.href = `/channel/${channel}`
+            a.innerHTML = channel;
+            li.appendChild(a);
+
 
             //add to list 
             document.querySelector('#channel_nav').append(li)
