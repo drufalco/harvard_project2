@@ -42,14 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#messages').innerHTML = "";
 
         channels[channel_name].forEach(element => {
-            console.log(element);
-            console.log("hey");
-            //create new list item
-            const li = document.createElement('li');
-            li.innerHTML = `${element[0]}: ${element[1]}`;
+            
+            //create new list items for timestamp & message
+            const li_1 = document.createElement('li');
+            li_1.innerHTML = element[0].bold() + " " + element[2];
+            const li_2 = document.createElement('li');
+            li_2.innerHTML = `${element[1]}`;
+            const br = document.createElement('BR');
 
             //add to list 
-            document.querySelector('#messages').append(li);
+            document.querySelector('#messages').append(li_1);
+            document.querySelector('#messages').append(li_2);
+            document.querySelector('#messages').append(br)
         })
         
         // clear input field, disable button
