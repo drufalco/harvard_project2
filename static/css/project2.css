@@ -21,3 +21,8 @@
 #channel_nav {
     padding-left: 0px;
 }
+
+.sidebar_add_channel {
+    display: flex;
+    flex-direction: row-reverse;
+}

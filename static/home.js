@@ -8,23 +8,49 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('connect', () => {
 
         // By default, submit button is disabled
-        document.querySelector('#add_channel_btn').disabled = true;
+    
+        channel_buttons_array = document.querySelectorAll('.btn');
+        channel_buttons_array.forEach(button => button.disabled = true);
 
         // Enable button only if there is text in the input field
         document.querySelector('#channel_name').onkeyup = () => {
-            if (document.querySelector('#channel_name').value.length > 0)
+            if (document.querySelector('#channel_name').value.length > 0) {
                 document.querySelector('#add_channel_btn').disabled = false;
-            else
+                console.log(false);
+            } else {
                 document.querySelector('#add_channel_btn').disabled = true;
+                console.log(true);
+            }
         };
 
 
+        document.querySelector('#sidebar_channel_name').onkeyup = () => {
+            if (document.querySelector('#sidebar_channel_name').value.length > 0) {
+                document.querySelector('#sidebar_channel_btn').disabled = false;
+            } else {
+                document.querySelector('#sidebar_channel_btn').disabled = true;
+            }
+        };
+
+        // submit form - one for each form 
         document.querySelector('#add_channel').onsubmit = () => {
-            const channel_name = document.querySelector("#channel_name").value // not sure if this works
-            socket.emit('add channel', channel_name)
+            const channel_name = document.querySelector("#channel_name").value; // not sure if this works
+            console.log(channel_name);
+            socket.emit('add channel', channel_name);
             
             // disable button
             document.querySelector('#channel_name').value = '';
+
+            // Stop form from submitting
+            return false;
+        }
+
+        document.querySelector('#sidebar_add_channel').onsubmit = () => {
+            const channel_name = document.querySelector("#sidebar_channel_name").value; // not sure if this works
+            socket.emit('add channel', channel_name);
+            
+            // disable button
+            document.querySelector('#sidebar_channel_name').value = '';
 
             // Stop form from submitting
             return false;
@@ -33,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // update channels list after the new channel has been added to the dictionary
     socket.on("update channels", channels => {
-        
+
         document.querySelector('#channel_nav').innerHTML = "";
         for (channel in channels) {
             console.log(channel)
@@ -52,9 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // clear input field, disable button
         document.querySelector('#add_channel_btn').disabled = true;
-    })
-});
+        document.querySelector('#sidebar_channel_btn').disabled = true;
+    });
 
-
-
-
+})
