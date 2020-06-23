@@ -3,10 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // CODE FOR SENDING MESSAGES
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
+    
     // takes channel name from url
+    let current_channel = null;
     const pathArray = window.location.pathname.split('/');
-    const current_channel = pathArray[2];
+    if (pathArray.length > 2) {
+        current_channel = pathArray[2];
+    }
+
 
     // saves current channel in case user closes program
     localStorage.setItem('current_channel', current_channel);
@@ -16,61 +20,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // By default, submit button is disabled
         buttons_array = document.querySelectorAll('.btn');
-        console.log(buttons_array)
         buttons_array.forEach(button => button.disabled = true);
 
         forms_array = document.querySelectorAll('.form')
-        console.log(forms_array)
+        input_array = document.querySelectorAll('.input')
+    
 
         // Enable button only if there is text in the input field
-        document.querySelector('#send').onkeyup = () => {
-            console.log("keyup")
-            if (document.querySelector('#send').value.length > 0)
-                document.querySelector('#send_message_btn').disabled = false;
-            else
-                document.querySelector('#send_message_btn').disabled = true;
-        };
-
-        // send message
-        document.querySelector('#send_message').onsubmit = () => {
-            const message = document.querySelector("#send").value
-            const user = localStorage.getItem('username')
-            console.log(message)
-            socket.emit('send message', message, channel_name, user) 
-            
-            // disable button
-            document.querySelector('#send').value = '';
-
-            // Stop form from submitting
-            return false;
-        }
-
-        // add channel 
-        document.querySelector('#sidebar_channel_name').onkeyup = () => {
-            if (document.querySelector('#sidebar_channel_name').value.length > 0) {
-                document.querySelector('#sidebar_channel_btn').disabled = false;
-            } else {
-                document.querySelector('#sidebar_channel_btn').disabled = true;
+        input_array.forEach((input, index) => {
+        
+            input.onkeyup = () => {
+                if (input.value.length > 0) {
+                    buttons_array[index].disabled = false;
+                    console.log("hi")
+                } else {
+                    buttons_array[index].disabled = true;
+                }
             }
-        };
+        })
+        
 
-        document.querySelector('#sidebar_add_channel').onsubmit = () => {
-            const channel_name = document.querySelector("#sidebar_channel_name").value; // not sure if this works
-            socket.emit('add channel', channel_name);
-            
-            // disable button
-            document.querySelector('#sidebar_channel_name').value = '';
+        // send message or add channel
+        forms_array.forEach((form, index) => {
+            form.onsubmit = () => {
+                console.log("submit")
+                console.log(form.className);
+               
+                if (form.className === 'add_channel form') {
+                    const channel_name = input_array[index].value; // not sure if this works
+                    socket.emit('add channel', channel_name);
+                
+                } else if (form.className === "send_message form") {
+                    const message = input_array[index].value;
+                    const user = localStorage.getItem('username');
+                    console.log(message);
+                    socket.emit('send message', message, current_channel, user);
+                }
 
-            // Stop form from submitting
-            return false;
-        }
+                // disable button and stop form from submitting
+                input_array[index].value = '';
+                return false;
+            }
+        })
     })
 
     // update messages
     socket.on("update messages", channels => {
         document.querySelector('#messages').innerHTML = "";
 
-        channels[channel_name].forEach(element => {
+        channels[current_channel].forEach(element => {
             
             //create new list items for timestamp & message
             const li_1 = document.createElement('li');
@@ -94,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#channel_nav').innerHTML = "";
         for (channel in channels) {
-            console.log(channel)
+            
             //create new list item
             const li = document.createElement('li');
             li.className = "nav-link";

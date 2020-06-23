@@ -34,12 +34,12 @@ def channel(channel_name):
 
 # receive and store message
 @socketio.on("send message")
-def send(message, channel_name, user):
+def send(message, current_channel, user):
     #get date
     dt = datetime.now()
     time = dt.strftime("%b X%d X%I:%M%p").replace('X0','X').replace('X','') #formatting to remove zeroes
 
-    if len(channels[channel_name]) > 99: 
-        channels[channel_name].pop(0)
-    channels[channel_name].append([user, message, time])
+    if len(channels[current_channel]) > 99: 
+        channels[current_channel].pop(0)
+    channels[current_channel].append([user, message, time])
     emit("update messages", channels, broadcast=True)

@@ -8,7 +8,7 @@
 
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
        
-        <script src="{{ url_for('static', filename='channel.js') }}"></script>
+        <script src="{{ url_for('static', filename='test.js') }}"></script>
        
 
 
@@ -22,9 +22,9 @@
         <div class = "row">
 
             <nav id="sidebar" class="navbar navbar-light col-3">
-                <form id="sidebar_add_channel" class="add_channel" method="post">
+                <form id="sidebar_add_channel" class="add_channel form" method="post">
                     <div class="form-group sidebar_add_channel">
-                        <input id="sidebar_channel_name" class="channel_name form-control" placeholder="Add new channel" autocomplete="off" type="text" name="channel_name">
+                        <input id="sidebar_channel_name" class="channel_name form-control input" placeholder="Add new channel" autocomplete="off" type="text" name="channel_name">
                         <button id= "sidebar_channel_btn" class="add_channel_btn btn btn-primary" type="submit">+</button>
                     </div>
                 </form>
@@ -46,9 +46,9 @@
                 </ul>
                 <!--channel name??-->
                 <!--form to create new channel-->
-                <form id="send_message" method="post">
+                <form id="send_message" method="post" class="send_message form">
                     <div class="form-group">
-                        <input id="send" type="text" class="form-control" name="send" autocomplete="off">
+                        <input id="send" type="text" class="form-control input" name="send" autocomplete="off">
                     </div>
                     <button id="send_message_btn" type="submit" class="btn btn-primary">Send</button>
                 </form>
