@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
             input.onkeyup = () => {
                 if (input.value.length > 0) {
                     buttons_array[index].disabled = false;
-                    console.log("hi")
                 } else {
                     buttons_array[index].disabled = true;
                 }
@@ -43,8 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // send message or add channel
         forms_array.forEach((form, index) => {
             form.onsubmit = () => {
-                console.log("submit")
-                console.log(form.className);
                
                 if (form.className === 'add_channel form') {
                     const channel_name = input_array[index].value; // not sure if this works
@@ -53,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (form.className === "send_message form") {
                     const message = input_array[index].value;
                     const user = localStorage.getItem('username');
-                    console.log(message);
                     socket.emit('send message', message, current_channel, user);
                 }
 

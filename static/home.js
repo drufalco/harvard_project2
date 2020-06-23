@@ -16,10 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#channel_name').onkeyup = () => {
             if (document.querySelector('#channel_name').value.length > 0) {
                 document.querySelector('#add_channel_btn').disabled = false;
-                console.log(false);
             } else {
                 document.querySelector('#add_channel_btn').disabled = true;
-                console.log(true);
             }
         };
 
@@ -35,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // submit form - one for each form 
         document.querySelector('#add_channel').onsubmit = () => {
             const channel_name = document.querySelector("#channel_name").value; // not sure if this works
-            console.log(channel_name);
+
             socket.emit('add channel', channel_name);
             
             // disable button
@@ -62,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#channel_nav').innerHTML = "";
         for (channel in channels) {
-            console.log(channel)
             //create new list item
             const li = document.createElement('li');
             li.className = "nav-link";

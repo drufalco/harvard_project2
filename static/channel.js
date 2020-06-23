@@ -16,15 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // By default, submit button is disabled
         buttons_array = document.querySelectorAll('.btn');
-        console.log(buttons_array)
         buttons_array.forEach(button => button.disabled = true);
 
         forms_array = document.querySelectorAll('.form')
-        console.log(forms_array)
 
         // Enable button only if there is text in the input field
         document.querySelector('#send').onkeyup = () => {
-            console.log("keyup")
             if (document.querySelector('#send').value.length > 0)
                 document.querySelector('#send_message_btn').disabled = false;
             else
@@ -35,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#send_message').onsubmit = () => {
             const message = document.querySelector("#send").value
             const user = localStorage.getItem('username')
-            console.log(message)
             socket.emit('send message', message, channel_name, user) 
             
             // disable button
@@ -94,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#channel_nav').innerHTML = "";
         for (channel in channels) {
-            console.log(channel)
             //create new list item
             const li = document.createElement('li');
             li.className = "nav-link";
