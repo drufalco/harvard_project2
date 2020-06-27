@@ -30,16 +30,26 @@ def add(channel_name):
 # click on channel from list to access its messages
 @app.route("/channel/<channel_name>", methods=["GET", "POST"])
 def channel(channel_name):
-    return render_template("channel.html", channels=channels, channel_name=channels[channel_name])
+    return render_template("channel.html", channels=channels, channel_name=channels[channel_name], channel_string=channel_name)
 
 # receive and store message
 @socketio.on("send message")
-def send(message, current_channel, user):
+def send(message, current_channel, user, uuid):
     #get date
     dt = datetime.now()
     time = dt.strftime("%b X%d X%I:%M%p").replace('X0','X').replace('X','') #formatting to remove zeroes
 
     if len(channels[current_channel]) > 99: 
         channels[current_channel].pop(0)
-    channels[current_channel].append([user, message, time])
+    channels[current_channel].append([user, message, time, uuid])
     emit("update messages", channels, broadcast=True)
+
+# delete message
+@socketio.on("delete message")
+def delete(element_uuid, current_channel):
+    for message in channels[current_channel]:
+        if (element_uuid == message[3]):
+            channels[current_channel].remove(message)
+            break
+    emit("update messages", channels, broadcast=True)
+

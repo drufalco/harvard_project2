@@ -9,10 +9,14 @@
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
        
         <script src="{{ url_for('static', filename='test.js') }}"></script>
-       
 
-
-        <title>Channel | Flack</title>
+        <script>
+    
+        </script>
+    
+    
+    
+        <title>{{ channel_string }} | Flack</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/project2.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +43,10 @@
             <div id="content" class="col-9">
                 <ul id="messages">
                     {% for message in channel_name %}
-                    <li><b>{{ message [0]}}</b> {{ message[2] }}</li>
+                    <div class="button_div">
+                        <li><b>{{ message[0]}}</b> {{ message[2] }}</li>
+                        <button data-uuid={{ message[3] }} class="delete_button btn-primary">x</button>
+                    </div>
                     <li>{{ message[1] }}</li>
                     <br>
                     {% endfor %}

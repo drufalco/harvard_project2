@@ -15,7 +15,7 @@
 }
 
 #content {
-    margin-left: 250px;
+    margin-left: 275px;
 }
 
 #channel_nav {
@@ -25,4 +25,37 @@
 .sidebar_add_channel {
     display: flex;
     flex-direction: row-reverse;
+}
+
+.button_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn-primary {
+    background-color: #BA55D3;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #a606cf;
+}
+
+.btn-primary:disabled {
+    background-color: #c9a9d1;
+}
+
+a {
+    color: #504852;
+}
+
+a:hover {
+    color: #a606cf;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0px;
 }
