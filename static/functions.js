@@ -71,9 +71,9 @@ function updateMessages(channels) {
             document.querySelector('#messages').append(br);
 
         });
-        // clear input field, disable button
-        document.querySelector('#send_message_btn').disabled = true
     }
+    // clear input field, disable button
+    document.querySelector('#send_message_btn').disabled = true
 }
 
 
@@ -95,7 +95,9 @@ function updateChannels(channels) {
 
         //add to list 
         document.querySelector('#channel_nav').append(li)
-    }
-    // clear input field, disable button
+         
+        // clear input field, disable button
     document.querySelector('#sidebar_channel_btn').disabled = true;
+    }
+   
 };

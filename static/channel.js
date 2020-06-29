@@ -14,10 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // takes channel name from url, saves current channel in case user closes program
     const current_channel = getCurrentChannel();
+
+    const pathArray = window.location.pathname.split('/');
     if (pathArray.length > 2) {
         localStorage.setItem('current_channel', current_channel);
     } 
-
 
     //when connected, configure button to send message
     socket.on('connect', () => {
