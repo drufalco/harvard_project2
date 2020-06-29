@@ -12,16 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     
-    // takes channel name from url
-    let current_channel = null;
+    // takes channel name from url, saves current channel in case user closes program
     const pathArray = window.location.pathname.split('/');
+    let current_channel = pathArray[2];
     if (pathArray.length > 2) {
-        current_channel = pathArray[2];
-    }
+        localStorage.setItem('current_channel', current_channel);
+    } 
 
-
-    // saves current channel in case user closes program
-    localStorage.setItem('current_channel', current_channel);
 
     //when connected, configure button to send message
     socket.on('connect', () => {

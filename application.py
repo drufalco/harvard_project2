@@ -33,6 +33,11 @@ def channel(channel_name):
     return render_template("channel.html", channels=channels, channel_name=channels[channel_name], channel_string=channel_name)
 
 # receive and store message
+@socketio.on("connect")
+def connect():
+    emit("update messages", channels, broadcast=True)
+
+# receive and store message
 @socketio.on("send message")
 def send(message, current_channel, user, uuid):
     #get date
