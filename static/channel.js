@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     socket.emit('add channel', channel_name);
                 
                 } else if (form.className === "send_message form") {
-                    console.log('test')
                     const message = input_array[index].value;
                     const user = localStorage.getItem('username');
                     const uuid = uuidv4();
@@ -48,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let delete_buttons = document.querySelectorAll('.delete_button');
             delete_buttons.forEach(button => {
+                console.log("delete")
                 button.onclick = () => {
                     let element_uuid = button.dataset.uuid
                 socket.emit('delete message', element_uuid, current_channel)
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // update messages
-    socket.on("update messages", updateMessages)
+    socket.on("update messages", channels => updateMessages(channels, socket))
 
     // update channels list after the new channel has been added to the dictionary
     socket.on("update channels", updateChannels)

@@ -35,7 +35,9 @@ def channel(channel_name):
 # receive and store message
 @socketio.on("connect")
 def connect():
+    emit("update channels", channels, broadcast=True)
     emit("update messages", channels, broadcast=True)
+    
 
 # receive and store message
 @socketio.on("send message")

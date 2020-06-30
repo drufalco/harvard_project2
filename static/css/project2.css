@@ -4,8 +4,13 @@
     width: 100%;
 }
 
+.index {
+    width: 100%;
+    padding-left: 30px;
+}
+
+
 #sidebar {
-    width: 250px;
     position: fixed;
     transition: all .3s;
     padding-left: 30px;
@@ -15,7 +20,9 @@
 }
 
 #content {
-    margin-left: 275px;
+    width: 100%;
+    padding-left: 275px;
+    padding-right: 5%;
 }
 
 #channel_nav {
@@ -59,3 +66,4 @@ ul {
     list-style-type: none;
     padding-left: 0px;
 }
+

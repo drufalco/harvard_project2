@@ -24,7 +24,7 @@
     <body>
         <div class = "row">
 
-            <nav id="sidebar" class="navbar navbar-light col-3">
+            <nav id="sidebar" class="navbar navbar-light">
                 <form id="sidebar_add_channel" class="add_channel form" method="post">
                     <div class="form-group sidebar_add_channel">
                         <input id="sidebar_channel_name" class="channel_name form-control input" placeholder="Add new channel" autocomplete="off" type="text" name="channel_name">
@@ -33,24 +33,12 @@
                 </form>
                 <h3>Channels</h3>
                 <ul id="channel_nav">
-                {% for channel in channels %}
-                <li class="nav-link"><a href="{{ url_for('channel', channel_name=channel) }}">{{ channel }}</a></li>
-                {% endfor %}
                 </ul>
             </nav>
             
-            <div id="content" class="col-9">
+            <div id="content">
                 <ul id="messages">
-                    {% for message in channel_name %}
-                    <div class="button_div">
-                        <li><b>{{ message[0]}}</b> {{ message[2] }}</li>
-                        <button data-uuid={{ message[3] }} class="delete_button btn-primary">x</button>
-                    </div>
-                    <li>{{ message[1] }}</li>
-                    <br>
-                    {% endfor %}
                 </ul>
-                <!--channel name??-->
                 <!--form to create new channel-->
                 <form id="send_message" method="post" class="send_message form">
                     <div class="form-group">

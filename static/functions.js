@@ -1,3 +1,7 @@
+
+
+
+
 // create uuid
 function getCurrentChannel() {
     const pathArray = window.location.pathname.split('/');
@@ -35,48 +39,47 @@ function arrays() {
     return {buttons_array, forms_array, input_array}
 }
 
-function updateMessages(channels) {
-    const current_channel = getCurrentChannel();
+function updateMessages(channels, socket) {
     
-    if (channels[current_channel].length > 0) {
-        document.querySelector('#messages').innerHTML = "";
+    const current_channel = getCurrentChannel();
+    document.querySelector('#messages').innerHTML = "";
 
-        channels[current_channel].forEach(element => {
-                    
-            //create new list items for timestamp & message
-            const div = document.createElement('div');
-            div.className = "button_div";
-            const li_1 = document.createElement('li');
-            li_1.innerHTML = element[0].bold() + " " + element[2];
-            const li_2 = document.createElement('li');
-            li_2.innerHTML = `${element[1]}`;
-            const br = document.createElement('BR');
+    channels[current_channel].forEach(element => {
+                
+        //create new list items for timestamp & message
+        const div = document.createElement('div');
+        div.className = "button_div";
+        const li_1 = document.createElement('li');
+        li_1.innerHTML = element[0].bold() + " " + element[2];
+        const li_2 = document.createElement('li');
+        li_2.innerHTML = `${element[1]}`;
+        const br = document.createElement('BR');
 
-            const hide = document.createElement('button');
-            hide.className = 'delete_button btn-primary';
-            hide.innerHTML = 'x';
+        const hide = document.createElement('button');
+        hide.className = 'delete_button btn-primary';
+        hide.innerHTML = 'x';
+        hide.dataset.uuid = element[3]
 
-            let element_uuid = element[3]
+        let element_uuid = element[3]
 
-            // When hide button is clicked, remove post.
-            hide.onclick = function() {
-                socket.emit('delete message', element_uuid, current_channel)// not sure how to do this
-            } 
-
-            //add to list 
-            div.appendChild(li_1);
+        // When hide button is clicked, remove post.
+        hide.onclick = function() {
+            socket.emit('delete message', element_uuid, current_channel)// not sure how to do this
+        } 
+      
+        //add to list 
+        div.appendChild(li_1);
+        if (localStorage.getItem('username') === element[0]) {
             div.appendChild(hide)
-            document.querySelector('#messages').append(div);
-            document.querySelector('#messages').append(li_2);
-            document.querySelector('#messages').append(br);
+            }
+        document.querySelector('#messages').append(div);
+        document.querySelector('#messages').append(li_2);
+        document.querySelector('#messages').append(br);
 
-        });
-    }
+    });
     // clear input field, disable button
     document.querySelector('#send_message_btn').disabled = true
 }
-
-
 
 function updateChannels(channels) {
 
