@@ -18,11 +18,11 @@ function uuidv4() {
 
 function arrays() {
     // By default, submit button is disabled
-    buttons_array = document.querySelectorAll('.btn');
+    let buttons_array = document.querySelectorAll('.btn');
     buttons_array.forEach(button => button.disabled = true);
 
-    forms_array = document.querySelectorAll('.form')
-    input_array = document.querySelectorAll('.input')
+    let forms_array = document.querySelectorAll('.form')
+    let input_array = document.querySelectorAll('.input')
 
     // Enable button only if there is text in the input field
     input_array.forEach((input, index) => {
@@ -50,17 +50,17 @@ function updateMessages(channels, socket) {
         const div = document.createElement('div');
         div.className = "button_div";
         const li_1 = document.createElement('li');
-        li_1.innerHTML = element[0].bold() + " " + element[2];
+        li_1.innerHTML = element["user"].bold() + " " + element["time"];
         const li_2 = document.createElement('li');
-        li_2.innerHTML = `${element[1]}`;
+        li_2.innerHTML = `${element["message"]}`;
         const br = document.createElement('BR');
 
         const hide = document.createElement('button');
         hide.className = 'delete_button btn-primary';
         hide.innerHTML = 'x';
-        hide.dataset.uuid = element[3]
+        hide.dataset.uuid = element["uuid"]
 
-        let element_uuid = element[3]
+        let element_uuid = element["uuid"]
 
         // When hide button is clicked, remove post.
         hide.onclick = function() {
@@ -69,7 +69,7 @@ function updateMessages(channels, socket) {
       
         //add to list 
         div.appendChild(li_1);
-        if (localStorage.getItem('username') === element[0]) {
+        if (localStorage.getItem('username') === element["user"]) {
             div.appendChild(hide)
             }
         document.querySelector('#messages').append(div);

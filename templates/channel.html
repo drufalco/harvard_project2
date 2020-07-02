@@ -15,7 +15,7 @@
     
         </script>
     
-        <title>{{ channel_string }} | Flack</title>
+        <title></title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/project2.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
         <div class = "row">
 
             <nav id="sidebar" class="navbar navbar-light">
-                <form id="sidebar_add_channel" class="add_channel form" method="post">
+                <form id="sidebar_add_channel" class="add_channel form" method="post" data-name="channels">
                     <div class="form-group sidebar_add_channel">
                         <input id="sidebar_channel_name" class="channel_name form-control input" placeholder="Add new channel" autocomplete="off" type="text" name="channel_name">
                         <button id= "sidebar_channel_btn" class="add_channel_btn btn btn-primary" type="submit">+</button>
@@ -40,7 +40,7 @@
                 <ul id="messages">
                 </ul>
                 <!--form to create new channel-->
-                <form id="send_message" method="post" class="send_message form">
+                <form id="send_message" method="post" class="send_message form" data-name="messages">
                     <div class="form-group">
                         <input id="send" type="text" class="form-control input" name="send" autocomplete="off">
                     </div>

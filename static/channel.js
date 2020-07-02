@@ -20,19 +20,24 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('current_channel', current_channel);
     } 
 
+    document.querySelector("title").innerHTML= current_channel + " | Flack"
+
     //when connected, configure button to send message
     socket.on('connect', () => {
-        arrays()
+
+        const arraysObject = arrays();
+        let forms_array = arraysObject.forms_array;
+        let input_array = arraysObject.input_array;
         
         // send message or add channel
         forms_array.forEach((form, index) => {
             form.onsubmit = () => {
             
-                if (form.className === 'add_channel form') {
+                if (form.dataset.name === "channels") {
                     const channel_name = input_array[index].value; // not sure if this works
                     socket.emit('add channel', channel_name);
                 
-                } else if (form.className === "send_message form") {
+                } else if (form.dataset.name === "messages") {
                     const message = input_array[index].value;
                     const user = localStorage.getItem('username');
                     const uuid = uuidv4();

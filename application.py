@@ -18,6 +18,12 @@ def index():
 def home():
     return render_template("home.html", channels=channels)
 
+# receive and store message
+@socketio.on("connect")
+def connect():
+    emit("update channels", channels, broadcast=True)
+    emit("update messages", channels, broadcast=True)
+
 # add channel to channel list
 @socketio.on("add channel")
 def add(channel_name):
@@ -31,12 +37,6 @@ def add(channel_name):
 @app.route("/channel/<channel_name>", methods=["GET", "POST"])
 def channel(channel_name):
     return render_template("channel.html", channels=channels, channel_name=channels[channel_name], channel_string=channel_name)
-
-# receive and store message
-@socketio.on("connect")
-def connect():
-    emit("update channels", channels, broadcast=True)
-    emit("update messages", channels, broadcast=True)
     
 
 # receive and store message
@@ -48,14 +48,14 @@ def send(message, current_channel, user, uuid):
 
     if len(channels[current_channel]) > 99: 
         channels[current_channel].pop(0)
-    channels[current_channel].append([user, message, time, uuid])
+    channels[current_channel].append({"user": user, "message": message, "time": time, "uuid": uuid})
     emit("update messages", channels, broadcast=True)
 
 # delete message
 @socketio.on("delete message")
 def delete(element_uuid, current_channel):
     for message in channels[current_channel]:
-        if (element_uuid == message[3]):
+        if (element_uuid == message["uuid"]):
             channels[current_channel].remove(message)
             break
     emit("update messages", channels, broadcast=True)

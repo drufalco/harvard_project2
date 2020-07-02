@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //when connected, configure button to send message
     socket.on('connect', () => {
 
-       arrays()
+        const arraysObject = arrays();
+        let forms_array = arraysObject.forms_array;
+        let input_array = arraysObject.input_array;
         
         // send message or add channel
         forms_array.forEach((form, index) => {
