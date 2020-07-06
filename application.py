@@ -27,6 +27,9 @@ def connect():
 # add channel to channel list
 @socketio.on("add channel")
 def add(channel_name):
+    print(channel_name)
+    channel_name = channel_name.replace(" ", "")
+    print(channel_name)
     if channel_name in channels: # checks if there's already channel w that name
         return "Error"
     else: 

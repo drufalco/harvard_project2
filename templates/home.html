@@ -6,7 +6,7 @@
                 window.location.href = '/' 
 
             if (localStorage.getItem('current_channel')) {
-                window.location.href = `${localStorage.getItem('current_channel')}`
+                window.location.href = `/channel/${localStorage.getItem('current_channel')}`
             }
 
         </script>
